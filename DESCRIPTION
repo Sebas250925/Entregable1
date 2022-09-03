@@ -1,11 +1,18 @@
 Package: Entregable1
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Entregable 1 
 Version: 0.1.0
-Author: Who wrote it
+Author: c(
+  person("Yilan", "Florez", role = "cre")
+  person("William", "Gutierrez", role = "ctb")
+  person("Marlon", "Bocanegra", role = "ctb")
+  
+)
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Este documento es para realizar ejercicios propuestos en la clase con respecto a la consulta y manejo del
+software R, de igual forma la creación de un documento en R markdown.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+Imports: nycflights13, tidyverse
+    
