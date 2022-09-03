@@ -88,8 +88,7 @@ elegir <- function(numero){
   }
 
   else if(numero ==6){
-    retraso3 <- arrange(flights, desc(dep_delay)) %>%
-    group_by(tailnum)
+    retraso3 <- arrange(flights, desc(dep_delay))
   }
 
 }
