@@ -16,11 +16,11 @@ diezmin <-  filter(flights, arr_delay == 10)
 
 terinmin <- filter(flights, arr_delay == -30 | arr_delay == 30 )
 
+numero <- readline(prompt = "Ïngrese un numero: ") %>%
+numero  <- as.integer(numero) %>%  # convert character into integer
+entrada(numero) %>%
 
-numero <- readline(prompt="Ingrese un numero")
-
-
-elegir <- function(numero){
+entrada <- function(numero){
 
   if(numero == 1){
 
@@ -90,6 +90,8 @@ elegir <- function(numero){
   else if(numero ==6){
     retraso3 <- arrange(flights, desc(dep_delay))
   }
+
+  numero ==0;
 
 }
 
