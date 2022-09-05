@@ -1,7 +1,7 @@
 library(nycflights13)
 library(tidyverse)
 opcion = "s"
-entrada <- function(x){
+retrieve_answer <- function(x){
   vuelos <-  flights
 
   if(x == 1){
@@ -97,7 +97,7 @@ entrada <- function(x){
 while(opcion == "s"){
   number <- readline(prompt = "ingrese un numero: ")
   number  <- as.numeric(number)   # convert character into integer
-  entrada(x = number)
+  retrieve_answer(x = number)
   opcion <- readline("Do you want continue? s/n ")
   if(opcion == "n"){
     print("Bye :)")
