@@ -1,0 +1,308 @@
+---
+title: "PrimerEntregable"
+author: "Sebastian, William, Marlon"
+date: "2022-08-28"
+output: pdf_document
+
+---
+
+## **Solución al primer ClassWork**
+
+## **Ejercicio de repaso**
+
+Se nos solicita que imprimamos los numeros del 1 al 100 con *while* y *for*. A continuación el codigo.
+
+```{r}
+# while
+i <- 1
+while (i<=100) {
+  print(i)
+  i <- i + 1
+}
+# for
+for (x in 1:100) {
+  print(x)
+  x <- x + 1
+}
+```
+
+## 5.2.4 **Ejercicios**
+
+## 1. **Encuentra todos los vuelos**
+
+## 1.1 Filtrado de los vuelos que tuvieron retraso de llegada de dos o más horas
+
+Hemos usado la funcion *filter* el cual permite filtrar valores. El primer argumento es la tabla de los vuelos. El segundo argumento y los siguientes son las caracteristicas para filtrar.
+
+Importamos las librerias **tidyverse** y **nycfligths13** para la practica.
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+
+vuelos <-  flights
+retraso = filter(flights, arr_delay <= -2)
+```
+
+Los datos 336766 fueron asignados en una variable llamada **VUELOS** y seguido creamos otra variable llamada **RETRASO**, donde asignamos los datos filtrados por columnas para encontrar los vuelos que tuvieron un retraso de dos o más horas
+
+Aquí están los primeros 19 resultados, ya que son muchos datos, sin embargo con el código puedes mostrarlos todos en el IDE, esta imagen es solo para efectos visuales.
+
+![foto tomada de los datos extraidos](capturas/tabla1.png)
+
+## 1.2 Filtrado de vuelos a Houston (IAH - HOU)
+
+De la misma manera que realizamos el filtrado en el primer punto, lo hacemos en este apartado. Aqui el codigo
+
+Importamos las librerias **tidyverse** y **nycfligths13** para la practica.
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+IAH <-  vuelos %>%
+  filter(dest == "IAH" | dest == "HOU") %>% 
+  select(year, month, day, dest) %>%
+  arrange(year)
+
+```
+
+Los datos 336766 fueron asignados en una variable llamada **VUELOS** y seguido creamos otra variable llamada **IAH**, donde asignamos los datos filtrados por columnas para encontrar los vuelos a Houston.
+
+Aquí están los primeros 19 resultados, ya que son muchos datos, sin embargo con el código puedes mostrarlos todos en el IDE, esta imagen es solo para efectos visuales.
+
+![foto tomada de los datos extraidos](capturas/tabla2.png)
+
+## 5.3.1 **Ejercicios**
+
+## 2. **Organiza todos los vuelos**
+
+## 2.1 ¿Cómo podría usar para ordenar todos los valores que faltan al principio?
+
+Ordenamos los datos NA al principio, de manera descendente con una tabla creada de **ordenados** y lo almacenamos ahí.
+```{r}
+ordenados <- arrange(vuelos, desc(is.na(arr_delay))) %>%
+  select(arr_delay)
+```
+
+![foto tomada de los datos extraidos de vuelos retrasados](capturas/tabla9.png)
+
+## 2.2 Ordene para encontrar los vuelos más retrasados. Encuentre los vuelos que salieron más temprano
+
+La funcion **arrange** funciona en seleccionar filas, cambia su orden. Se necesita un marco de datos y un conjunto de nombres de columna (o expresiones más complicadas) para ordenar. Si proporciona más de un nombre de columna, cada columna adicional se utilizará para romper los vínculos en los valores de las columnas anteriores, esta funcion la utilizaremos para el desarrollo de las actividades
+
+Creamos una tabla llamada **retrasados** Guardamos los datos que se encuentran los vuelos mas atrazados.
+
+Importamos las librerias **tidyverse** y **nycfligths13** para la practica.
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+retrasados <-  arrange(flights , desc(arr_delay)) %>% 
+  select(year, month, day, arr_delay ,flight)
+```
+Aquí están los primeros 21 resultados, ya que son muchos datos, sin embargo con el código puedes mostrarlos todos en el IDE, esta imagen es solo para efectos visuales.
+
+![foto tomada de los datos extraidos de vuelos retrasados](capturas/tabla3.png)
+
+Seguido de esto creamos otra tabla llamada **temprano** donde almacenaremos los datos de los vuelos que salieron temprano, ambos datos se ordenaron de manera descendente
+```{r}
+library(tidyverse)
+library(nycflights13)
+temprano <- arrange(flights , desc(dep_delay))%>% 
+  select(year, month, day, arr_delay, flight)
+```
+Aquí están los primeros 21 resultados, ya que son muchos datos, sin embargo con el código puedes mostrarlos todos en el IDE, esta imagen es solo para efectos visuales.
+
+![foto tomada de los datos extraidos de vuelos tempranos](capturas/tabla4.png)
+
+## 2.3 Ordene para encontrar los vuelos más rápidos (de mayor velocidad).
+
+Creamos una tabla llamada **masVeloces** Guardamos los datos que se encuentran los vuelos mas rapidos, se crearon dos formas para hacer la practica
+
+Importamos las librerias **tidyverse** y **nycfligths13** para la practica
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+masVeloces1.0 <- arrange(flights, air_time)%>% 
+  select(year, month, day, air_time, flight)
+```
+Aquí están los primeros 21 resultados de la primera opcion, ya que son muchos datos, sin embargo con el código puedes mostrarlos todos en el IDE, esta imagen es solo para efectos visuales.
+
+![foto tomada de los datos extraidos de vuelos mas veloces](capturas/tabla5.png)
+
+Creamos la segunda opcion.
+```{r}
+library(tidyverse)
+library(nycflights13)
+masVeloces1.1 <- arrange(flights, hour)%>% 
+  select(year, month, day, hour, flight)
+```
+
+Aquí están los primeros 21 resultados, de la segunda opcion, ya que son muchos datos, sin embargo con el código puedes mostrarlos todos en el IDE, esta imagen es solo para efectos visuales.
+
+![foto tomada de los datos extraidos de vuelos mas veloces](capturas/tabla6.png)
+
+## 2.4 ¿Qué vuelos viajaron más lejos? ¿Cuál viajó más corto?
+Creamos una tabla llamada **masLejos** Guardamos los datos que se encuentran los vuelos que fueron mas lejos.
+
+Importamos las librerias **tidyverse** y **nycfligths13** para la practica
+```{r}
+library(tidyverse)
+library(nycflights13)
+masCorto <- arrange(flights , distance) %>% 
+  select(year, month, day, distance, flight)
+```
+
+
+Aquí están los primeros 21 resultados, ya que son muchos datos, sin embargo con el código puedes mostrarlos todos en el IDE, esta imagen es solo para efectos visuales.
+
+![foto tomada de los datos extraidos de vuelos mas cortos](capturas/tabla7.png)
+
+Seguido de esto creamos una tabla llamada **masCorto** de los vuelos que tuvieron un viaje mas corto.
+```{r}
+library(tidyverse)
+library(nycflights13)
+masLejos <- arrange(flights , desc(distance)) %>% 
+  select(year, month, day, distance, flight)
+```
+
+Aquí están los primeros 21 resultados, ya que son muchos datos, sin embargo con el código puedes mostrarlos todos en el IDE, esta imagen es solo para efectos visuales.
+
+![foto tomada de los datos extraidos de vuelos mas lejos](capturas/tabla8.png)
+
+### 5.4.1
+
+**2. ¿Qué sucede si incluye el nombre de una variable varias veces en una llamada select ()?**
+
+No sucede nada y siempre va filtrar el campo desde que este indicado como en la tabla ![](C:\Users\sebas\Downloads\Captura3\Captura3.png) 
+
+**3. ¿Qué hace la función any_of()? ¿Por qué podría ser útil junto con este vector?**
+
+Se usa el any_of()para permitir variables faltantes, tambien el any_of()es especialmente útil para eliminar variables de un marco de datos porque volver a llamarlo no provoque un error, en este vector podria ayudar haciendo un select y que me filtre si esta o no el campo requerido.
+
+**4. ¿Te sorprende el resultado de ejecutar el siguiente código? ¿Cómo tratan los ayudantes selectos el caso de forma predeterminada? ¿Cómo se puede cambiar ese valor predeterminado?** ![](C:\Users\sebas\Downloads\Captura3\Captura2.png)
+
+No me sorprende mucho ya que en el codigo esta seleccionando los campos que contengan ese valor, se cambia este valor predeterminado en este caso cambiando la variable "TIME" por la que se requiera
+
+### 5.5.2
+**1. Actualmente, dep_time y sched_dep_time son convenientes a la vista, pero difíciles de calcular porque en realidad no son números continuos. Conviértalos a una representación más conveniente de la cantidad de minutos desde la medianoche.**
+```{r eval=FALSE}
+transmute(flights,
+  dep_time,
+  hour = dep_time %/% 100,
+  minute = dep_time %% 100,
+)
+  transmute(flights,
+  sched_dep_time,
+  hour = sched_dep_time %/% 100,
+  minute = sched_dep_time %% 100,
+)
+```
+
+**2. Compare air_time con arr_time - dep_time. Que esperas ver? ¿Que ves? ¿Qué necesitas hacer para arreglarlo? **
+
+```{r eval=FALSE}
+transmute(flights,
+  air_time = air_time,
+  air_time_new = arr_time - dep_time
+)
+```
+Segun la logica que hemos llevado se tiene que air_time debe ser igual a la esa resta, veo que sales los datos desordenados y por ente es dificil ver esa percepcion, para qye esto se arregle se debe ordenar de los numeros para ver la similitud en los resultados 
+
+
+
+## **Ejercicio 5.6.7 (Item 1)**
+
+Para este ejercicio en primera instancia se utilizó la funcion filter(), para poder filtrar los vuelos con llegada antes de 15 minutos, y los vuelos que llegaron 15 minutos tarde. 
+
+```{r message=FALSE}
+
+library(nycflights13)
+library(tidyverse)
+
+
+```
+
+```{r}
+flights <- flights
+minantes <- filter(flights, arr_delay == -15 | arr_delay == 15)
+```
+
+Para encontrar los vuelos que siempre llegan 10 minutos tarde
+
+```{r}
+diezmin <-  filter(flights, arr_delay == 10)
+
+```
+
+Para encontrar los vuelos que llegan 30 minutos antes y 30 minutos despues
+
+```{r}
+terinmin <- filter(flights, arr_delay == -30 | arr_delay == 30 )
+```
+
+
+
+## **Ejercicio 5.7.1 (Item 2)**
+
+Para este ejercicio debemos de encontrar el avión que tuvo el peor record de puntualidad, para esto nos vamos apoyar en las funciones de, arrange y group_by.
+
+```{r message=FALSE}
+
+#retraso3 <- arrange(flights, desc(dep_delay)) 
+  #group_by(tailnum)
+  
+```
+
+Organizamos los datos según el dep_delay que es la diferencia entre la duración pleada del vuelo y la real, seguido a esto lo agrupamos por tipo de avión.
+
+
+## **Descripción de dos funcion filter()**
+
+Acontinucación se realiza la explicación de la función filter(), la cual el primer argumento es la tabla a la que estamos accediendo como en este caso es la de "flights", y los siguientes argumentos que se le pasan a la función son lo que deseemos buscar en este caso voy a agregar la libreria de tidyverse.
+
+```{r message = FALSE}
+library(nycflights13)
+library(tidyverse)
+```
+
+Utilizamos "message = FALSE", para que no aparezca el codigo en la ejecución. 
+
+
+Luego de eso vamos a visualizar la tabla de los vuelos que fueron del mes de Septiembre, dia 25, destino MIAMI, en la hora 15.
+
+```{r}
+Vuelos_de_septembre_25 <-filter(flights, month ==9, day==25, dest == 'MIA', hour == 15)
+```
+
+También podemos realizar comparaciones en el codigo para este caso se filtra los vuelos en los meses de Junio o Julio
+
+```{r}
+Vuelos_de_junio_julio <- filter(flights, month ==6 | month == 7)
+```
+
+## **Descripción de función mutate()**
+
+Con esta función podemos agregar otra columna haciendo operaciones entre columnas ya existentes
+
+```{r}
+flights_sml <- select(flights, 
+  year:day, 
+  ends_with("delay"), 
+  distance, 
+  air_time
+)
+mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  speed = distance / air_time * 60
+)
+
+```
+
+En este caso vamos a agregar las columnas "gain" que será la resta entre la columna dep_delay y arr_delay, seguido se agrega la columna "speed" la cual es la división entre distance y air_time multiplicado por 60.
+
+
+
+
+
